@@ -3,22 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
+          integrity="sha512-NmLkDIU1C/C88wi324HBc+S2kLhi08PN5GDeUVVVC/BVt/9Izdsc9SVeVfA1UZbY3sHUlDSyRXhCzHfr6hmPPw=="
+          referrerpolicy="no-referrer" rel="stylesheet"/>
+    <link href="./styles.css" rel="stylesheet">
 </head>
 <body>
+<div class="container">
+    <form action="" class="form">
+        <input class="note-field" id="textInput" placeholder="Write you note here..." type="text">
+    </form>
+    <span class="submit" id="submitButton"> Create a new Note</span>
 
-    <ul id="ulId" class="ulClass" data-custom="custom value" data-dog-tail="Hello dog tail">
-        <li>Element 1</li>
-        <li>Element 2</li>
-        <li>Element 3</li>
-        <li>Element 4</li>
-        <li>Element 5</li>
-        <li>Element 6</li>
-        <li>Element 7</li>
-        <li>Element 8</li>
-        <li>Element 9</li>
-        <li>Element 10</li>
+    <ul class="note-list" id="noteList">
     </ul>
-
+</div>
 <script src="js/solution.js"></script>
 </body>
 </html>
