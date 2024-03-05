@@ -5,10 +5,11 @@
 
   button.addEventListener('click', () => {
     const li = document.createElement('li');
+    li.className = 'note-item';
+
     if (input.value.trim() !== '') {
       li.innerHTML = input.value;
-      list.appendChild(li);
-      li.className = 'note-item';
+      list.prepend(li);
       input.value = '';
     }
   });
