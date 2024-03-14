@@ -7,11 +7,17 @@
     let isEmpty = false;
 
     inputs.forEach((input) => {
-      isEmpty = input.value === '';
+      if (input.value === '') {
+        isEmpty = true;
+      }
     });
 
     if (isEmpty) {
-      alert('Please fill all the fields');
+      document.querySelector('[data-fail]').textContent = 'Please fill in all fields.';
+      document.querySelector('[data-success]').textContent = '';
+    } else {
+      document.querySelector('[data-success]').textContent = 'Registration successful.';
+      document.querySelector('[data-fail]').textContent = '';
     }
   });
 }());

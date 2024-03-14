@@ -10,16 +10,18 @@
 <div class="container">
     <form class="form" data-form>
         <label>
-            <input name="userName" type="text">
+            <input data-name name="userName" type="text">
         </label>
         <label>
-            <input name="userEmail" type="email">
+            <input data-email name="userEmail" type="email">
         </label>
         <label>
-            <input name="userPassword" type="password">
+            <input data-password name="userPassword" type="password">
         </label>
         <button type="submit">Registration</button>
     </form>
+    <div class="success" data-success></div>
+    <div class="fail" data-fail></div>
 </div>
 
 <script src="js/solution.js"></script>

@@ -1,6 +1,7 @@
 .container {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     margin: 0 auto;
 }
 
@@ -9,4 +10,16 @@
     flex-direction: column;
     width: 170px;
     gap: 5px;
+}
+
+.fail {
+    color: red;
+    background-color: rgba(220, 20, 60, 0.3);
+    border-radius: 5px;
+}
+
+.success {
+    color: green;
+    background-color: rgba(0, 100, 0, 0.32);
+    border-radius: 5px;
 }
