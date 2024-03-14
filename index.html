@@ -3,21 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="./style.css" rel="stylesheet">
 </head>
 <body>
+<div class="container">
+    <form class="form">
+        <label>
+            <input name="surveyTitle" placeholder="SURVEY TITLE" type="text">
+        </label>
+        <label>
+            <input name="surveyQuestion" type="text">
+        </label>
+        <button data-question type="submit">Add a Question</button>
+        <label>
+            <input name="surveyAnswer" type="text">
+        </label>
+        <button data-answer type="submit">Add an Answer</button>
+        <button data-survey type="submit">Create Survey</button>
+    </form>
+    <form class="question-list" data-question-list>
 
-    <ul id="ulId" class="ulClass" data-custom="custom value" data-dog-tail="Hello dog tail">
-        <li>Element 1</li>
-        <li>Element 2</li>
-        <li>Element 3</li>
-        <li>Element 4</li>
-        <li>Element 5</li>
-        <li>Element 6</li>
-        <li>Element 7</li>
-        <li>Element 8</li>
-        <li>Element 9</li>
-        <li>Element 10</li>
-    </ul>
+    </form>
+
+</div>
 
 <script src="js/solution.js"></script>
 </body>
