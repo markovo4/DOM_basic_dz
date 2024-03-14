@@ -1,0 +1,10 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 170px;
+    gap: 10px;
+}
+
+.answer {
+    margin-left: 50px;
+}
