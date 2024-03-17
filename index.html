@@ -2,18 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Title</title>
     <link href="./style.css" rel="stylesheet">
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" rel="stylesheet">
 </head>
-<body>
-<div class="container">
+<body class="bg-dark text-light">
+<div class="container w-50 pt-5">
     <form class="form">
         <label>
-            <input name="surveyTitle" placeholder="SURVEY TITLE" type="text">
+            <input class="form-control mb-2" name="surveyTitle" placeholder="SURVEY TITLE" type="text">
         </label>
-        <button data-question type="submit">Add a Question</button>
-        <button data-answer type="submit">Add an Answer</button>
-        <button data-survey type="submit">Create Survey</button>
+        <button class="btn btn-outline-info w-100 mb-2" data-question type="submit">Add a Question</button>
+        <button class="btn btn-outline-info w-100 mb-2" data-answer type="submit">Add an Answer</button>
+        <button class="btn btn-outline-info w-100 mb-2" data-survey type="submit">Create Survey</button>
     </form>
     <form class="question-list" data-question-list>
 

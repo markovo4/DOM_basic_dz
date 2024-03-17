@@ -6,17 +6,34 @@
   const form = document.querySelector('.form');
 
   const surveyQuestions = [];
-  const surveyAnswers = [];
   let index = 0;
+
+  const surveyAnswers = [];
   let indexAnswer = 0;
+
+  const checkForAnswers = function () {
+    if (index > 0) {
+      let count = 0;
+      for (let i = 0; i < surveyAnswers.length; i += 1) {
+        if (surveyAnswers[i].questionId === index - 1) count += 1;
+      }
+      return !(count < 2);
+    }
+    return true;
+  };
 
   form.addEventListener('click', (event) => {
     event.preventDefault();
+
     if (event.target === buttonQuestion) {
+      if (!checkForAnswers()) {
+        alert('Please add another answer');
+        return;
+      }
       form.insertAdjacentHTML('beforeend', `
             <label>
                 <span>Question: </span>
-                <input name="surveyQuestion" placeholder="Survey Question" type="text" data-id-q="${index}">
+                <input class="form-control mb-2" name="surveyQuestion" placeholder="Survey Question" type="text" data-id-q="${index}">
             </label>`);
 
       const newQuestion = {
@@ -25,11 +42,12 @@
       surveyQuestions.push(newQuestion);
       index += 1;
     }
+
     if (event.target === buttonAnswer) {
       form.insertAdjacentHTML('beforeend', `
             <label class="answer">
                 <span>Answer: </span>
-                <input name="surveyAnswer" placeholder="Survey Answer" type="text" data-id-a="${indexAnswer}">
+                <input class="form-control mb-2" name="surveyAnswer" placeholder="Survey Answer" type="text" data-id-a="${indexAnswer}">
             </label>`);
 
       const newAnswer = {
@@ -39,17 +57,37 @@
       surveyAnswers.push(newAnswer);
       indexAnswer += 1;
     }
+
     if (event.target === buttonSubmit) {
+      if (!checkForAnswers()) {
+        alert('Please add another answer!');
+        return;
+      }
+
+      if (inputTitle.value.trim() === '') {
+        alert('Please fill in the title field!');
+        return;
+      }
+
       for (let i = 0; i < index; i += 1) {
-        surveyQuestions[i].text = form.querySelector(`[data-id-q="${i}"]`).value;
+        if (form.querySelector(`[data-id-q="${i}"]`).value.trim() !== '') {
+          surveyQuestions[i].text = form.querySelector(`[data-id-q="${i}"]`).value;
+        } else {
+          alert('Please fill all the fields!');
+          return;
+        }
       }
       for (let i = 0; i < indexAnswer; i += 1) {
-        surveyAnswers[i].text = form.querySelector(`[data-id-a="${i}"]`).value;
+        if (form.querySelector(`[data-id-a="${i}"]`).value.trim() !== '') {
+          surveyAnswers[i].text = form.querySelector(`[data-id-a="${i}"]`).value;
+        } else {
+          alert('Please fill all the fields!');
+          return;
+        }
       }
-      console.log(surveyQuestions);
-      console.log(surveyAnswers);
 
       form.innerHTML = '';
+
       form.insertAdjacentHTML('beforeend', `
   <h1>${inputTitle.value}</h1>
   <ol>
