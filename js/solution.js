@@ -1,50 +1,51 @@
-(function () {
-  const form = document.getElementById('form');
-  const dataKey = 'formData';
+const DATA_KEY = 'dataform';
 
-  if (form !== null) {
+(function () {
+  const form = document.querySelector('#form');
+  const data = {};
+
+  const formIn = () => {
     form.addEventListener('submit', (event) => {
       event.preventDefault();
 
-      const elements = event.target.querySelectorAll('input, select, textarea');
-      const data = Array.from(elements).reduce((accumulator, item) => {
-        accumulator[item.name] = item.value;
-        return accumulator;
-      }, {});
+      const inputs = event.target.querySelectorAll('input, email, textarea');
 
-      for (const key in data) {
-        if (data[key] === '') {
-          alert('Please fill all the fields');
-          return;
-        }
-      }
-      localStorage.setItem(dataKey, JSON.stringify(data));
+      inputs.forEach((item) => {
+        data[item.name] = item.value;
+      });
 
+      localStorage.setItem(DATA_KEY, JSON.stringify(data));
       window.location.href = 'sub.html';
     });
-  }
+  };
 
-  if (window.location.pathname === '/DOM_basic_dz/sub.html') {
-    const data = JSON.parse(localStorage.getItem(dataKey));
-
-    const dataContainer = document.querySelector('.data-container');
-
-    if (document.querySelector('.data-ul')) {
-      document.querySelector('.data-ul').remove();
-    }
+  const formOut = () => {
+    const data = JSON.parse(localStorage.getItem(DATA_KEY));
+    const container = document.querySelector('.data-container');
 
     const ul = document.createElement('UL');
     ul.classList.add('data-ul');
     ul.classList.add('d-flex');
     ul.classList.add('flex-column');
     ul.classList.add('justify-content-between');
-    // ul.classList.add('align-items-center');
 
-    for (const key in data) {
-      const li = document.createElement('LI');
-      li.innerHTML = `<b>${key}</b> : <i>${data[key]}</i>`;
-      ul.append(li);
-      dataContainer.append(ul);
+    if (data) {
+      for (const key in data) {
+        if (data[key]) {
+          const li = document.createElement('li');
+          li.innerHTML = `<b>${key}</b>: ${data[key]}`;
+          ul.append(li);
+          container.append(ul);
+        }
+      }
+    } else if (!data) {
+      container.innerHTML = 'NO DATA WAS ENTERED';
     }
+  };
+
+  if (window.location.pathname !== '/DOM_basic_dz/sub.html') {
+    formIn();
+  } else if (window.location.pathname === '/DOM_basic_dz/sub.html') {
+    formOut();
   }
 }());
