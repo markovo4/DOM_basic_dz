@@ -2,61 +2,41 @@
   const form = document.querySelector('#todoForm');
   const todoItemsContainer = document.querySelector('[data-todo-items]');
 
-  const notesList = [];
+  const wrapperTemplate = (data) => `
+      <div class="col-4">
+        <div class="taskWrapper">
+          <div class="taskHeading">${data.title}</div>
+          <div class="taskDescription">${data.description}</div>
+        </div>
+      </div>`;
 
-  const createTodoItemTemplate = (config) => {
-    const wrapper = document.createElement('div');
-    wrapper.className = 'col-4';
-
-    wrapper.insertAdjacentHTML('beforeend', `
-            <div class="taskWrapper">
-                <div class="taskHeading">${config.title}</div>
-                <div class="taskDescription">${config.description}</div>
-            </div>`);
-
-    const newNote = {
-      // eslint-disable-next-line max-len
-      id: localStorage.length ? JSON.parse(localStorage.getItem(localStorage.key(localStorage.length - 1))).id + 1 : 1,
-      title: config.title,
-      description: config.description,
-    };
-
-    notesList.push(newNote);
-    localStorage.setItem(newNote.id, JSON.stringify(newNote));
-
-    return wrapper;
+  const saveNote = (data) => {
+    const id = localStorage.length;
+    localStorage.setItem(id.toString(), JSON.stringify(data));
   };
 
   const render = () => {
     for (let i = 0; i < localStorage.length; i += 1) {
-      const key = localStorage.key(i);
-      const item = JSON.parse(localStorage.getItem(key));
+      const item = JSON.parse(localStorage.getItem(i.toString()));
       const wrapper = document.createElement('div');
-      wrapper.className = 'col-4';
-
-      wrapper.insertAdjacentHTML('beforeend', `
-            <div class="taskWrapper">
-                <div class="taskHeading">${item.title}</div>
-                <div class="taskDescription">${item.description}</div>
-            </div>`);
-      todoItemsContainer.append(wrapper);
+      wrapper.innerHTML = wrapperTemplate(item);
+      todoItemsContainer.append(wrapper.firstElementChild);
     }
   };
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const inputs = e.target.querySelectorAll('input, textarea');
-    const data = {};
-    for (const input of inputs) {
-      if (!input.value.trim()) return alert('Lack of data!');
-      data[input.name] = input.value;
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+
+    if (!Object.values(data).every((value) => value.trim())) {
+      return alert('Lack of data!');
     }
-    const note = createTodoItemTemplate(data);
-    todoItemsContainer.append(note);
+
+    saveNote(data);
+    todoItemsContainer.insertAdjacentHTML('beforeend', wrapperTemplate(data));
     e.target.reset();
   });
 
-  document.addEventListener('DOMContentLoaded', (event) => {
-    render();
-  });
-  // localStorage.clear();
+  document.addEventListener('DOMContentLoaded', render);
 }());
