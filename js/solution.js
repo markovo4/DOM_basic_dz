@@ -2,41 +2,55 @@
   const form = document.querySelector('#todoForm');
   const todoItemsContainer = document.querySelector('[data-todo-items]');
 
-  const wrapperTemplate = (data) => `
-      <div class="col-4">
-        <div class="taskWrapper">
-          <div class="taskHeading">${data.title}</div>
-          <div class="taskDescription">${data.description}</div>
-        </div>
-      </div>`;
+  const wrapperTemplate = (data) => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'col-4';
 
-  const saveNote = (data) => {
-    const id = localStorage.length;
-    localStorage.setItem(id.toString(), JSON.stringify(data));
+    wrapper.insertAdjacentHTML('beforeend', `
+            <div class="taskWrapper">
+                <div class="taskHeading">${data.title}</div>
+                <div class="taskDescription">${data.description}</div>
+            </div>`);
+    return wrapper;
   };
 
+  const newNoteObject = (data) => {
+    const newNote = {
+
+      id: localStorage.length,
+      title: data.title,
+      description: data.description,
+
+    };
+    localStorage.setItem(newNote.id.toString(), JSON.stringify(newNote));
+  };
   const render = () => {
     for (let i = 0; i < localStorage.length; i += 1) {
       const item = JSON.parse(localStorage.getItem(i.toString()));
-      const wrapper = document.createElement('div');
-      wrapper.innerHTML = wrapperTemplate(item);
-      todoItemsContainer.append(wrapper.firstElementChild);
+
+      const wrapper = wrapperTemplate(item);
+      todoItemsContainer.append(wrapper);
     }
   };
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData);
+    const inputs = e.target.querySelectorAll('input, textarea');
+    const data = {};
 
-    if (!Object.values(data).every((value) => value.trim())) {
-      return alert('Lack of data!');
+    for (const input of inputs) {
+      if (!input.value.trim()) return alert('Lack of data!');
+      data[input.name] = input.value;
     }
 
-    saveNote(data);
-    todoItemsContainer.insertAdjacentHTML('beforeend', wrapperTemplate(data));
+    newNoteObject(data);
+    const note = wrapperTemplate(data);
+
+    todoItemsContainer.append(note);
     e.target.reset();
   });
 
-  document.addEventListener('DOMContentLoaded', render);
+  document.addEventListener('DOMContentLoaded', () => {
+    render();
+  });
 }());
