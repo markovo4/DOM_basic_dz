@@ -10,27 +10,14 @@
             <div class="taskWrapper">
                 <div class="taskHeading">${data.title}</div>
                 <div class="taskDescription">${data.description}</div>
-                <span class="btn btn-small btn-danger" data-index="${localStorage.length}" data-type="remove">delete</span>
             </div>`);
     return wrapper;
   };
 
-  todoItemsContainer.addEventListener('click', (event) => {
-    if (event.target.dataset.index) {
-      const index = +(event.target.dataset.index);
-      const { type } = event.target.dataset;
-      console.log(index);
-      if (type === 'remove') {
-        localStorage.removeItem(index.toString());
-        event.target.parentElement.remove();
-      }
-    }
-  });
-
   const newNoteObject = (data) => {
     const newNote = {
 
-      id: localStorage.length + 1,
+      id: localStorage.length,
       title: data.title,
       description: data.description,
 
