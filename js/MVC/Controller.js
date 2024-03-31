@@ -44,17 +44,3 @@ const Controller = {
 
     }
 }
-
-// e.preventDefault()
-// const inputs = e.target.querySelectorAll('input, textarea');
-// const data = {}
-//
-// for(const input of inputs) {
-//     if(!input.value.trim()) return alert('Lack of data!');
-//     data[input.name] = input.value
-// }
-//
-// const todoItem = createTodoItemTemplate(data)
-// appendTodoItem(todoItem)
-// e.target.reset();
-// })
