@@ -2,11 +2,11 @@ const Controller = {
   button: document.querySelector('.buttons'),
 
   getCalcValue(e) {
-    const action = e.target.textContent;
+    const action = e.target;
     return action;
   },
 
-  get value() {
-    return this.getCalcValue.bind(this);
+  init() {
+    return this.button.addEventListener('click', this.getCalcValue.bind(this));
   },
 };
