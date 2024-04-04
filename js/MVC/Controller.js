@@ -15,8 +15,6 @@ const Controller = {
         console.log(savedNote);
         View.addNoteToList(savedNote);
         View.resetForm();
-        // const todoItem = createTodoItemTemplate(data)
-        // appendTodoItem(todoItem)
     },
 
     loadedHandler() {

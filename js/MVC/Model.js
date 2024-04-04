@@ -1,6 +1,13 @@
 const Model = {
     key: 'data',
 
+    *iterator (){
+        let a = 0;
+        while(true){
+            yield ++a;
+        }
+    },
+
     get note() {
         const data = JSON.parse(localStorage.getItem(this.key));
         return data ? data : [];
@@ -13,7 +20,7 @@ const Model = {
     saveNote (data) {
         const saveData = structuredClone(this.note);
         const dataToSave = structuredClone(data);
-        dataToSave.id = saveData.length ? saveData.at(-1).id + 1 : 1;
+        dataToSave.id = saveData.length ? this.iterator().next().value : 1;
 
         saveData.push(dataToSave);
         this.note = saveData;
