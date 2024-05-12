@@ -3,26 +3,50 @@ const div = document.querySelector('.d-flex');
 
 async function logAlbums() {
   try {
-    const response = await fetch('https://jsonplaceholder.typicode.com/photos?albumId=2');
+    const response = await fetch('https://jsonplaceholder.typicode.com/albums');
     const albums = await response.json();
-    console.log(albums);
     return albums;
   } catch (error) {
-    console.error('Error fetching albums:', error);
+    throw new Error(`Error fetching albums: ${error}`);
   }
 }
 
 logAlbums().then((albums) => {
   albums.forEach((album) => {
     const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.textContent = `${album.id}. ${album.title}`;
+    a.className = 'text-decoration-none';
+
+    li.setAttribute('id', `${album.id}`);
+    a.setAttribute('id', `${album.id}`);
     li.className = 'list-group-item';
-    li.textContent = album.title;
+
+    li.appendChild(a);
     ul.appendChild(li);
-    const img = document.createElement('img');
-    img.className = 'card-img-top';
-    img.src = album.thumbnailUrl;
-    div.appendChild(img);
   });
 }).catch((error) => {
-  console.error('Error in promise chain:', error);
+  throw new Error(`Error in promise chain: ${error}`);
+});
+
+const logPhotos = async function (id) {
+  try {
+    const response = await fetch(`https://jsonplaceholder.typicode.com/photos?albumId=${id}`);
+    const photos = await response.json();
+    return photos;
+  } catch (error) {
+    throw new Error(`Error fetching photos: ${error}`);
+  }
+};
+
+ul.addEventListener('click', (e) => {
+  e.preventDefault();
+  logPhotos(e.target.id).then((photos) => {
+    photos.forEach((photo) => {
+      window.location.href = 'photos.html';
+      const img = document.createElement('img');
+      img.src = photo.thumbnailUrl;
+      div.appendChild(img);
+    });
+  });
 });
