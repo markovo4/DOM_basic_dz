@@ -9,10 +9,6 @@ class AlbumsList {
     this.#listOfAlbums.addEventListener('click', this.handleClick.bind(this));
   }
 
-  get listOfAlbums() {
-    return this.#listOfAlbums;
-  }
-
   loadListOfAlbums() {
     this.fetchAlbumsData().then((albums) => {
       albums.forEach((album) => {

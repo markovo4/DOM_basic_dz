@@ -5,10 +5,6 @@ class Gallery {
     this.#listOfPhotos = document.querySelector('.d-flex');
   }
 
-  get listOfPhotos() {
-    return this.#listOfPhotos;
-  }
-
   loadListOfPhotos() {
     this.fetchPhotosData().then((photos) => {
       photos.forEach((photo) => {
