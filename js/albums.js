@@ -42,6 +42,7 @@ class AlbumsList {
   handleClick(e) {
     const albumId = e.target.id;
     if (albumId) {
+      this.#listOfAlbums.removeEventListener('click', this.handleClick.bind(this));
       window.location.href = `./photos.html?albumId=${albumId}`;
     }
   }
