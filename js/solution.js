@@ -1,14 +1,16 @@
 class Album {
   #req = null;
 
+  #ul = null;
+
   constructor(req) {
     this.#req = req;
-    this.ul = document.querySelector('.list-group');
-    this.ul.addEventListener('click', this.handleClick.bind(this));
+    this.#ul = document.querySelector('.list-group');
+    this.#ul.addEventListener('click', this.handleClick.bind(this));
   }
 
   get getUl() {
-    return this.ul;
+    return this.#ul;
   }
 
   async logAlbum() {

@@ -1,12 +1,12 @@
 class Gallery {
-  div = null;
+  #div = null;
 
   constructor() {
-    this.div = document.querySelector('.d-flex');
+    this.#div = document.querySelector('.d-flex');
   }
 
   get getDiv() {
-    return this.div;
+    return this.#div;
   }
 
   async logPhotos() {
@@ -25,6 +25,7 @@ const div = newGallery.getDiv;
 newGallery.logPhotos().then((photos) => {
   photos.forEach((photo) => {
     const img = document.createElement('img');
+    img.className = 'flex-grow-1';
     img.src = photo.thumbnailUrl;
     div.appendChild(img);
   });
