@@ -1,0 +1,5 @@
+.list-group-item:hover {
+    transition: 0.3s;
+    background-color: rgba(229, 228, 228, 0);
+    color: white;
+}
